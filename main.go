@@ -1,6 +1,7 @@
 package main
 
 import (
+	"userfc/cmd/user/repository"
 	"userfc/cmd/user/resource"
 	"userfc/config"
 	"userfc/handler"
@@ -12,10 +13,12 @@ import (
 
 func main() {
 	cfg := config.LoadConfig()
-	resource.InitRedis(&cfg)
+	redis := resource.InitRedis(&cfg)
+	db := resource.InitDB(&cfg)
 
 	log.SetupLogger()
 
+	userRepository := repository.NewUserRepository(db, redis)
 	userHandler := handler.NewUserHandler()
 
 	port := cfg.App.Port
