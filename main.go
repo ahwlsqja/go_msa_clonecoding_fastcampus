@@ -1,6 +1,7 @@
 package main
 
 import (
+	"userfc/cmd/user/resource"
 	"userfc/config"
 	"userfc/handler"
 	"userfc/infrastructure/log"
@@ -11,6 +12,7 @@ import (
 
 func main() {
 	cfg := config.LoadConfig()
+	resource.InitRedis(&cfg)
 
 	log.SetupLogger()
 
